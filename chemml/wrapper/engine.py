@@ -1017,24 +1017,27 @@ def run(input_json, output_dir):
         of the folder name incrementally, until the name of the folder is unique.
 
     """
-    # input must be string
-    if not isinstance(input_json, str):
-        msg = "First parameter must be the path to the input file with json format."
+    # print(input_json, type(input_json))
+    if not isinstance(input_json, object):
+        msg = "First parameter must be the path to the input file with json format or json object."
+        raise IOError(msg)
+    elif not isinstance(input_json, str):
+        msg = "First parameter must be the path to the input file with json format or json object"
         raise IOError(msg)
 
-    # try to convert json to dictionary
-    try:
-        file_json = open(input_json, 'rb')
-        input_dict = json.load(file_json)
-        tmp_str = "parsing input file: %s ..." % input_json
-    except:
+    if isinstance(input_json, str):    
+        # try to convert json to dictionary
         try:
-            input_dict = json.loads(input_json)
-            tmp_str = "parsing the input string ..."
+            file_json = open(input_json, 'rb')
+            input_dict = json.load(file_json)
+            tmp_str = "parsing input file: %s ..." % input_json
         except:
-            msg = "The input is not a serializable json format."
-            raise IOError(msg)
-
+            try:
+                input_dict = json.loads(input_json)
+                tmp_str = "parsing the input string ..."
+            except:
+                msg = "The input is not a serializable json format."
+                raise IOError(msg)
     # create output directory and logger
     settings = Settings(output_dir)
     output_dir = settings.create_output()
