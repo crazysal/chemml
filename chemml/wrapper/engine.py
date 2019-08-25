@@ -1018,7 +1018,7 @@ def run(input_json, output_dir):
 
     """
     print(input_json, type(input_json))
-    if not isinstance(input_json, object):
+    if not isinstance(input_json, dict):
         msg = "First parameter must be the path to the input file with json object"
         raise IOError(msg)
     elif not isinstance(input_json, str):
