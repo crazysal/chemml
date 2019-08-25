@@ -1017,12 +1017,8 @@ def run(input_json, output_dir):
         of the folder name incrementally, until the name of the folder is unique.
 
     """
-    print(input_json, type(input_json))
-    if not isinstance(input_json, dict):
-        msg = "First parameter must be the path to the input file with json object"
-        raise IOError(msg)
-    elif not isinstance(input_json, str):
-        msg = "First parameter must be the path to the input file with json format"
+    if not isinstance(input_json, dict) or not isinstance(input_json, str):
+        msg = "First parameter must be the path to the input file with json object or object itself"
         raise IOError(msg)
 
     if isinstance(input_json, str):    
