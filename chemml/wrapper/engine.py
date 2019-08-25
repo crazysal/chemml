@@ -1019,6 +1019,7 @@ def run(input_json, output_dir):
     """ 
     if isinstance(input_json, dict):
         input_dict = input_json
+        tmp_str = "got dict as input skipping load"
     elif isinstance(input_json, str):
         # try to convert json to dictionary
         try:
