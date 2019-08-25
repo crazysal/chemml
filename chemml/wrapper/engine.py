@@ -1016,12 +1016,10 @@ def run(input_json, output_dir):
         This is the path to the output directory. If the directory already exist, we add an integer to the end
         of the folder name incrementally, until the name of the folder is unique.
 
-    """
-    if not isinstance(input_json, dict) or not isinstance(input_json, str):
-        msg = "First parameter must be the path to the input file with json object or object itself"
-        raise IOError(msg)
-
-    if isinstance(input_json, str):    
+    """ 
+    if isinstance(input_json, dict):
+        input_dict = input_json
+    elif isinstance(input_json, str):
         # try to convert json to dictionary
         try:
             file_json = open(input_json, 'rb')
@@ -1034,6 +1032,9 @@ def run(input_json, output_dir):
             except:
                 msg = "The input is not a serializable json format."
                 raise IOError(msg)
+    else : 
+        msg = "First parameter must be the json obj or path to the input file with json format"
+        raise IOError(msg)
     # create output directory and logger
     settings = Settings(output_dir)
     output_dir = settings.create_output()
